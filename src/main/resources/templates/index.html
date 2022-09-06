@@ -10,9 +10,15 @@
     <div class="btn_wrap">
         <input type="button" value="fastexcel 엑셀 다운로드" class="auto_excel_gray" name="Large" onclick="fastExcelDownload()">
     </div>
+    <div class="btn_wrap">
+        <input type="button" value="fastexcel map 사용 엑셀 다운로드" class="auto_excel_gray" name="Large" onclick="fastExcelDownloadWithMap()">
+    </div>
     <br>
     <div class="btn_wrap">
         <input type="button" value="동기식 POI 엑셀 다운로드" class="auto_excel_gray" name="Large" onclick="syncExcelDownload()">
+    </div>
+    <div class="btn_wrap">
+        <input type="button" value="동기식 POI map 엑셀 다운로드" class="auto_excel_gray" name="Large" onclick="syncExcelDownloadWithMap()">
     </div>
     <br>
     <div class="btn_wrap">
@@ -38,6 +44,16 @@
 
     function syncExcelDownload() {
         var excelDownloadUrl = "/download/poi/sync";
+        window.open(excelDownloadUrl, "_self", 'width=200, height=200, left=2000, top=2000');
+    }
+
+    function fastExcelDownloadWithMap() {
+        var excelDownloadUrl = "/download/fastexcel/map";
+        window.open(excelDownloadUrl, "_self", 'width=200, height=200, left=2000, top=2000');
+    }
+
+    function syncExcelDownloadWithMap() {
+        var excelDownloadUrl = "/download/poi/sync/map";
         window.open(excelDownloadUrl, "_self", 'width=200, height=200, left=2000, top=2000');
     }
 

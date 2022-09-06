@@ -36,7 +36,20 @@ public class ExampleController {
 
         try (OutputStream os = response.getOutputStream()) {
             fastExcelService.createFastExcel(os);
-            // fastExcelService.createFastExcelWithoutMap(os);
+        } catch (IOException e) {
+            log.error("[fastexcel] ERROR {}", e.getMessage());
+        }
+    }
+
+    @GetMapping("/fastexcel/map")
+    public void downloadExcelWithMap(HttpServletResponse response) throws UnsupportedEncodingException {
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileNameUtf8 = URLEncoder.encode("FAST_EXCEL", "UTF-8");
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileNameUtf8 + ".xlsx");
+
+        try (OutputStream os = response.getOutputStream()) {
+            fastExcelService.createFastExcelWithoutMap(os);
         } catch (IOException e) {
             log.error("[fastexcel] ERROR {}", e.getMessage());
         }
@@ -48,6 +61,13 @@ public class ExampleController {
 
         // return "syncExcelViewWithoutMap";
         return "syncExcelView";
+    }
+
+    @GetMapping(value = "/poi/sync/map", produces = "application/vnd.ms-excel")
+    public String downloadPoiExcelSyncVersionWithMap(Model model) {
+        model.addAttribute(ExcelConstants.EXCEL_MAP, exampleService.getExcelMap());
+
+        return "syncExcelViewWithoutMap";
     }
 
     @GetMapping(value = "/poi/async/downloadExcelView.do", produces = "application/vnd.ms-excel")
