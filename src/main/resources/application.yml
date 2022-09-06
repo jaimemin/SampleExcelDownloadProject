@@ -1,0 +1,52 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:log4jdbc:mariadb://localhost:3306/excel?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    username: test
+    password: test1234
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+  http:
+    multipart:
+      enabled: true
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    show-sql: true
+
+  application:
+    name: excel
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    root: warn
+
+file:
+  path: ${user.home}/
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  metrics:
+    tags:
+      application: ${spring.application.name}

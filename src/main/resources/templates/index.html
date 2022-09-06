@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="contents_wrap">
+    <div class="btn_wrap">
+        <input type="button" value="fastexcel 엑셀 다운로드" class="auto_excel_gray" name="Large" onclick="fastExcelDownload()">
+    </div>
+    <br>
+    <div class="btn_wrap">
+        <input type="button" value="동기식 POI 엑셀 다운로드" class="auto_excel_gray" name="Large" onclick="syncExcelDownload()">
+    </div>
+    <br>
+    <div class="btn_wrap">
+        <input type="button" value="비동기식 POI 엑셀 다운로드" class="auto_excel_gray" name="Large" onclick="asyncExcelDownload()">
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(function () {
+        var fileNames = [];
+        sessionStorage.setItem("EXCEL_KEYS", JSON.stringify(fileNames));
+        excelPoll();
+    });
+
+    function fastExcelDownload() {
+        var excelDownloadUrl = "/download/fastexcel";
+        window.open(excelDownloadUrl, "_self", 'width=200, height=200, left=2000, top=2000');
+    }
+
+    function syncExcelDownload() {
+        var excelDownloadUrl = "/download/poi/sync";
+        window.open(excelDownloadUrl, "_self", 'width=200, height=200, left=2000, top=2000');
+    }
+
+    function asyncExcelDownload() {
+
+        var fileName = "ASYNC_EXCEL_" + guid();
+
+        $.ajax({
+            url: "/download/poi/async",
+            method: "get",
+            data: "fileName=" + fileName,
+            success: function (data) {
+                var fileNames = JSON.parse(sessionStorage.getItem("EXCEL_KEYS"));
+                fileNames.push(fileName);
+                sessionStorage.setItem("EXCEL_KEYS", JSON.stringify(fileNames));
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.status + " : 서버와의 통신이 원활하지 않습니다. 다시 시도해 주십시오.");
+            }
+        });
+    }
+
+    function excelPoll() {
+        var fileNames = JSON.parse(sessionStorage.getItem("EXCEL_KEYS"));
+
+        for (var i = 0; i < fileNames.length; i++) {
+            var fileName = fileNames[i];
+
+            requestAsyncExcelDownload(fileName);
+        }
+
+        setTimeout(function () {
+            excelPoll();
+        }, 2000);
+    }
+
+    function requestAsyncExcelDownload(fileName) {
+        $.ajax({
+            url: "/download/poi/async/check",
+            method: "get",
+            data: {
+                fileName: fileName
+            },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                if (result == false) {
+                    return;
+                }
+
+                removeFileName(fileName);
+                var excelDownloadUrl = "/download/poi/async/downloadExcelView.do?fileName=" + fileName;
+                window.open(excelDownloadUrl, "_self", 'width=200, height=200, left=2000, top=2000');
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.status + " : 서버와의 통신이 원활하지 않습니다. 다시 시도해 주십시오.");
+            }
+        });
+    }
+
+    function removeFileName(fileName) {
+        var fileNames = JSON.parse(sessionStorage.getItem("EXCEL_KEYS"));
+        fileNames = arrayRemove(fileNames, fileName);
+        sessionStorage.setItem("EXCEL_KEYS", JSON.stringify(fileNames));
+    }
+
+    function guid() {
+        function _s4() {
+            return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+        }
+        return _s4() + _s4() + '-' + _s4() + '-' + _s4() + '-' + _s4() + '-' + _s4() + _s4() + _s4();
+    }
+
+    function arrayRemove(arr, value) {
+        return arr.filter(function(ele){
+            return ele != value;
+        });
+    }
+</script>
+</body>
+</html>
