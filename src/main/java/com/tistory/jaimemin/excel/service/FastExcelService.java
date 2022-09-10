@@ -107,7 +107,7 @@ public class FastExcelService {
     private void createWorksheetWithoutMap(Worksheet ws
             , int start
             , int count) throws IOException {
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 21; i++) {
             ws.width(i, 50);
         }
 
@@ -117,9 +117,24 @@ public class FastExcelService {
         ws.value(0, 3, "세번 째 칼럼");
         ws.value(0, 4, "네번 째 칼럼");
         ws.value(0, 5, "다섯번 째 칼럼");
+        ws.value(0, 6, "여섯번 째 칼럼");
+        ws.value(0, 7, "일곱번 째 칼럼");
+        ws.value(0, 8, "여덟번 째 칼럼");
+        ws.value(0, 9, "아홉번 째 칼럼");
+        ws.value(0, 10, "열번 째 칼럼");
+        ws.value(0, 11, "열한번 째 칼럼");
+        ws.value(0, 12, "열두번 째 칼럼");
+        ws.value(0, 13, "열세번 째 칼럼");
+        ws.value(0, 14, "열네번 째 칼럼");
+        ws.value(0, 15, "열다섯번 째 칼럼");
+        ws.value(0, 16, "열여섯번 째 칼럼");
+        ws.value(0, 17, "열일곱번 째 칼럼");
+        ws.value(0, 18, "열여덟번 째 칼럼");
+        ws.value(0, 19, "열아홉번 째 칼럼");
+        ws.value(0, 20, "스무번 째 칼럼");
 
-        ws.range(0, 0, 0, 5).style().horizontalAlignment("center").set();
-        ws.range(0, 0, 0, 5).style().fillColor(Color.LIGHT_GREEN).set();
+        ws.range(0, 0, 0, 21).style().horizontalAlignment("center").set();
+        ws.range(0, 0, 0, 21).style().fillColor(Color.LIGHT_GREEN).set();
 
         int row = 1;
 
@@ -133,6 +148,21 @@ public class FastExcelService {
                 ws.value(row, 3, exampleVO.getColumn3());
                 ws.value(row, 4, exampleVO.getColumn4());
                 ws.value(row, 5, exampleVO.getColumn5());
+                ws.value(row, 6, exampleVO.getColumn6());
+                ws.value(row, 7, exampleVO.getColumn7());
+                ws.value(row, 8, exampleVO.getColumn8());
+                ws.value(row, 9, exampleVO.getColumn9());
+                ws.value(row, 10, exampleVO.getColumn10());
+                ws.value(row, 11, exampleVO.getColumn11());
+                ws.value(row, 12, exampleVO.getColumn12());
+                ws.value(row, 13, exampleVO.getColumn13());
+                ws.value(row, 14, exampleVO.getColumn14());
+                ws.value(row, 15, exampleVO.getColumn15());
+                ws.value(row, 16, exampleVO.getColumn16());
+                ws.value(row, 17, exampleVO.getColumn17());
+                ws.value(row, 18, exampleVO.getColumn18());
+                ws.value(row, 19, exampleVO.getColumn19());
+                ws.value(row, 20, exampleVO.getColumn20());
 
                 if (++row % FLUSH_SIZE == 0) {
                     ws.flush();
