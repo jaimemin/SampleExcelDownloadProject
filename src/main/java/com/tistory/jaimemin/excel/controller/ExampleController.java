@@ -41,7 +41,7 @@ public class ExampleController {
         }
     }
 
-    @GetMapping("/fastexcel/map")
+    @GetMapping("/fastexcel/mapless")
     public void downloadExcelWithMap(HttpServletResponse response) throws UnsupportedEncodingException {
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
@@ -63,7 +63,7 @@ public class ExampleController {
         return "syncExcelView";
     }
 
-    @GetMapping(value = "/poi/sync/map", produces = "application/vnd.ms-excel")
+    @GetMapping(value = "/poi/sync/mapless", produces = "application/vnd.ms-excel")
     public String downloadPoiExcelSyncVersionWithMap(Model model) {
         model.addAttribute(ExcelConstants.EXCEL_MAP, exampleService.getExcelMap());
 
