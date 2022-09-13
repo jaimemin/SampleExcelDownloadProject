@@ -24,6 +24,9 @@
     <div class="btn_wrap">
         <input type="button" value="비동기식 POI 엑셀 다운로드" class="auto_excel_gray" name="Large" onclick="asyncExcelDownload()">
     </div>
+    <div class="btn_wrap">
+        <input type="button" value="csv 다운로드" class="auto_excel_gray" name="Large" onclick="csvDownload()">
+    </div>
 </div>
 
 <script
@@ -54,6 +57,11 @@
 
     function syncExcelDownloadWithMap() {
         var excelDownloadUrl = "/download/poi/sync/mapless";
+        window.open(excelDownloadUrl, "_self", 'width=200, height=200, left=2000, top=2000');
+    }
+
+    function csvDownload() {
+        var excelDownloadUrl = "/download/csv";
         window.open(excelDownloadUrl, "_self", 'width=200, height=200, left=2000, top=2000');
     }
 

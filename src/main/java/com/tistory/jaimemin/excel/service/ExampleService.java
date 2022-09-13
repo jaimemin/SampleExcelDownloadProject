@@ -39,7 +39,7 @@ public class ExampleService {
 
         List<ExampleVO> exampleVOs = new ArrayList<>();
 
-        for (int i = 0; i < 1500000; i++) {
+        for (int i = 0; i < 500000; i++) {
             ExampleVO exampleVO = ExampleVO.builder()
                     .column1(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss.SSS")))
                     .column2("test")

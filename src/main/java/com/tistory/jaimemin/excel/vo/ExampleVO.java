@@ -34,4 +34,15 @@ public class ExampleVO {
 
     private String column6;
 
+    @Override
+    public String toString() {
+        return String.join(","
+                , "" + this.getId()
+                , "" + this.getColumn1()
+                , "" + this.getColumn2()
+                , "" + this.getColumn3()
+                , "" + this.getColumn4()
+                , "" + this.getColumn5()
+                , "" + this.getColumn6());
+    }
 }
