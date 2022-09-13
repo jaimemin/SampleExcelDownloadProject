@@ -181,7 +181,7 @@ public class SxssfExcelBuilder {
         bodyStyleLeft.setWrapText(true);
         bodyStyleRight.setWrapText(true);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             sheet.setColumnWidth(i, 50 * 256);
         }
 
@@ -189,7 +189,7 @@ public class SxssfExcelBuilder {
         if (newSheet) {
             row = sheet.createRow(rowNo);
 
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < 7; i++) {
                 cell = row.createCell(i);
                 cell.setCellStyle(headStyle);
                 cell.setCellValue(getHeader(i));
@@ -224,6 +224,10 @@ public class SxssfExcelBuilder {
             cell = row.createCell(5);
             cell.setCellStyle(bodyStyleCenter);
             cell.setCellValue(exampleVO.getColumn5());
+
+            cell = row.createCell(6);
+            cell.setCellStyle(bodyStyleCenter);
+            cell.setCellValue(exampleVO.getColumn6());
 
             if (rowNo % FLUSH_ROW_NUM == 0) {
                 ((SXSSFSheet) sheet).flushRows(FLUSH_ROW_NUM);
@@ -310,6 +314,8 @@ public class SxssfExcelBuilder {
                 return "네번 째 칼럼";
             case 5:
                 return "다섯번 째 칼럼";
+            case 6:
+                return "여섯번 째 칼럼";
             default:
                 return null;
         }
