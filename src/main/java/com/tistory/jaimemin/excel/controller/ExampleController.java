@@ -69,9 +69,7 @@ public class ExampleController {
     }
 
     @GetMapping(value = "/poi/sync/mapless", produces = "application/vnd.ms-excel")
-    public String downloadPoiExcelSyncVersionWithMap(Model model) {
-        model.addAttribute(ExcelConstants.EXCEL_MAP, exampleService.getExcelMap());
-
+    public String downloadPoiExcelSyncVersionWithMap() {
         return "syncExcelViewWithoutMap";
     }
 
